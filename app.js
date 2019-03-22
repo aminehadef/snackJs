@@ -1,6 +1,8 @@
 let canvas = document.getElementById('canvas')
 let ctx = canvas.getContext('2d')
 let dirction  = ''
+let canvasWidth = canvas.width
+let canvasHeight = canvas.height
 
 class Snack{
     constructor(x, y){
@@ -13,22 +15,23 @@ class Snack{
         ctx.fillStyle = 'white'
         ctx.fillRect(this.x,this.y, 10, 5)
     }
+    deleteBlock(){
+        ctx.clearRect(this.x,this.y, 10, 5)
+    }
+
     moveRigth(){
-        
         this.x = this.x + 2
     }
     moveLeft(){
         this.x = this.x - 2
     }
     moveUp(){
-        this.y = this.y + 1
-    }
-    moveBottom(){
         this.y = this.y - 1
     }
-    deleteBlock(){
-        ctx.clearRect(this.x,this.y, 10, 5);
+    moveBottom(){
+        this.y = this.y + 1
     }
+
 }
 class Appel{
     constructor(x,y){
@@ -37,7 +40,7 @@ class Appel{
     }
     drawAppel(){
         ctx.fillStyle = 'red'
-        ctx.beginPath();
+        ctx.beginPath()
         ctx.fillStyle="#FF4422"
         ctx.arc(this.x,this.y + 2, 2, 0, 10 * Math.PI)
         ctx.fill()
@@ -45,6 +48,8 @@ class Appel{
 }
 
 let snack1 = new Snack(10,10)
+
+
 let appel1 = new Appel(50,10)
 
 appel1.drawAppel()
@@ -59,6 +64,9 @@ window.addEventListener('keydown', (e)=>{
             window.clearInterval(snack1.interva)
             dirction = 'rigth'
             snack1.interva = window.setInterval(()=>{
+                if (snack1.x + 14 > canvasWidth) {
+                    window.clearInterval(snack1.interva)
+                }
                 snack1.deleteBlock()
                 snack1.moveRigth()
                 snack1.drawBlock()
@@ -67,12 +75,18 @@ window.addEventListener('keydown', (e)=>{
         break
 
         case 38:
-            if (dirction == 'up') {break}
+
+            if (dirction == 'bottom') {break}
             window.clearInterval(snack1.interva)
-            dirction = 'bottom'
+            dirction = 'up'
+
             snack1.interva = window.setInterval(()=>{
+                
+                if (snack1.y < 2) {
+                    window.clearInterval(snack1.interva)
+                }
                 snack1.deleteBlock()
-                snack1.moveBottom()
+                snack1.moveUp()
                 snack1.drawBlock()
             },25)
 
@@ -83,6 +97,9 @@ window.addEventListener('keydown', (e)=>{
             window.clearInterval(snack1.interva)
             dirction = 'left'
             snack1.interva = window.setInterval(()=>{
+                if (snack1.x < 4) {
+                    window.clearInterval(snack1.interva)
+                }
                 snack1.deleteBlock()
                 snack1.moveLeft()
                 snack1.drawBlock()
@@ -91,12 +108,15 @@ window.addEventListener('keydown', (e)=>{
         break
 
         case 40:
-            if (dirction == 'bottom') {break}
+            if (dirction == 'up') {break}
             window.clearInterval(snack1.interva)
-            dirction = 'up'
+            dirction = 'bottom'
             snack1.interva = window.setInterval(()=>{
+                if (snack1.y + 7 > canvasHeight) {
+                    window.clearInterval(snack1.interva)
+                }
                 snack1.deleteBlock()
-                snack1.moveUp()
+                snack1.moveBottom()
                 snack1.drawBlock()
             },25)
         break
