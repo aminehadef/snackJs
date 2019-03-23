@@ -5,6 +5,7 @@ let canvasWidth = canvas.width
 let canvasHeight = canvas.height
 let scor = 0
 let vitesse = 25
+var snackSize = []
 class Snack{
     constructor(x, y){
         this.x = x
@@ -53,12 +54,22 @@ let snack1 = new Snack(50,15)
 let appel1 = new Appel(45,65)
 
 function collision(){
-    if (snack1.x < appel1.x + 2 &&
-        snack1.x + snack1.width > appel1.x - 2 &&
-        snack1.y < appel1.y + 4 &&
-        snack1.height + snack1.y > appel1.y)
-        {
+
+    if (snack1.x < appel1.x + 2 && snack1.x + snack1.width > appel1.x - 2 && snack1.y < appel1.y + 4 && snack1.height + snack1.y > appel1.y){
         scor++
+        if (dirction == 'bottom') {
+            snackSize.push( new Snack(snack1.x, snack1.y - (snack1.height + 5)))
+        }
+        if (dirction == 'up') {
+            snackSize.push( new Snack(snack1.x, snack1.y + (snack1.height + 5)))
+        }
+        if (dirction == 'rigth') {
+            snackSize.push( new Snack(snack1.x - snack1.width - 5, snack1.y))
+        }
+        if (dirction == 'left') {
+            snackSize.push( new Snack(snack1.x + snack1.width + 5, snack1.y))
+        }
+
         console.log('miamiam');
     }
 }
@@ -76,10 +87,20 @@ window.addEventListener('keydown', (e)=>{
                 if (snack1.x + 14 > canvasWidth) {
                     window.clearInterval(snack1.interva)
                 }
+                collision()
+                for(let i = 0; i < snackSize.length;i++){
+                    snackSize[i].deleteBlock()
+                    if (snack1.y < snackSize[i].y) {
+                        snackSize[i].y--
+                    } else {
+                        snackSize[i].moveRigth()
+                    }
+                    snackSize[i].drawBlock()
+                }
                 snack1.deleteBlock()
                 snack1.moveRigth()
                 snack1.drawBlock()
-                collision()
+                
             },vitesse)
 
         break
@@ -93,10 +114,20 @@ window.addEventListener('keydown', (e)=>{
                 if (snack1.y < 2) {
                     window.clearInterval(snack1.interva)
                 }
+                collision()
+                for(let i = 0; i < snackSize.length;i++){
+                    snackSize[i].deleteBlock()
+                    if (snackSize[i].x < snack1.x) {
+                        snackSize[i].x++
+                        snackSize[i].x++
+                    }else{
+                        snackSize[i].moveUp()
+                    }
+                    snackSize[i].drawBlock()
+                }
                 snack1.deleteBlock()
                 snack1.moveUp()
                 snack1.drawBlock()
-                collision()
             },vitesse)
 
         break
@@ -109,10 +140,20 @@ window.addEventListener('keydown', (e)=>{
                 if (snack1.x < 4) {
                     window.clearInterval(snack1.interva)
                 }
+                collision()
+                for(let i = 0; i < snackSize.length;i++){
+                    snackSize[i].deleteBlock()
+                    if (snack1.y > snackSize[i].y) {
+                        snackSize[i].y++
+                    } else {
+                        snackSize[i].moveLeft()
+                    }
+                    
+                    snackSize[i].drawBlock()
+                }
                 snack1.deleteBlock()
                 snack1.moveLeft()
                 snack1.drawBlock()
-                collision()
             },vitesse)
             
         break
@@ -125,10 +166,21 @@ window.addEventListener('keydown', (e)=>{
                 if (snack1.y + 7 > canvasHeight) {
                     window.clearInterval(snack1.interva)
                 }
+                collision()
+                for(let i = 0; i < snackSize.length;i++){
+                    snackSize[i].deleteBlock()
+                    if (snackSize[i].x < snack1.x) {
+                        snackSize[i].x++
+                        snackSize[i].x++
+                    }
+                    else{
+                        snackSize[i].moveBottom()
+                    }
+                    snackSize[i].drawBlock()
+                }
                 snack1.deleteBlock()
                 snack1.moveBottom()
                 snack1.drawBlock()
-                collision()
             },vitesse)
         break
     }
