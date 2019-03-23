@@ -63,9 +63,6 @@ function collision(){
     }
 }
 
-
-
-
 window.addEventListener('keydown', (e)=>{
     e.preventDefault()
     
