@@ -128,7 +128,11 @@ window.addEventListener('keydown', (e)=>{
                 snack1.drawBlock()
                 if (scut.y != snack1.y) {
                     scut.deleteBlock()
-                    scut.y++
+                    if (scut.y < snack1.y) {
+                        scut.y++
+                    } else {
+                        scut.y--
+                    }
                     scut.drawBlock()
                 }else{
                     scut.deleteBlock()
@@ -153,8 +157,13 @@ window.addEventListener('keydown', (e)=>{
                 snack1.drawBlock()
                 if (scut.x != snack1.x) {
                     scut.deleteBlock()
-                    scut.x++
-                    scut.x++
+                    if (scut.x < snack1.x) {
+                        scut.x++
+                        scut.x++   
+                    }else{
+                        scut.x--
+                        scut.x--
+                    }
                     scut.drawBlock()
                 } else {
                     scut.deleteBlock()
@@ -178,7 +187,11 @@ window.addEventListener('keydown', (e)=>{
                 snack1.drawBlock()
                 if (scut.y != snack1.y) {
                     scut.deleteBlock()
-                    scut.y++
+                    if (scut.y < snack1.y) {
+                        scut.y++
+                    } else {
+                        scut.y--
+                    }
                     scut.drawBlock()
                 } else {
                     scut.deleteBlock()
@@ -203,8 +216,13 @@ window.addEventListener('keydown', (e)=>{
 
                 if (scut.x != snack1.x) {
                     scut.deleteBlock()
-                    scut.x++
-                    scut.x++
+                    if (scut.x < snack1.x) {
+                        scut.x++
+                        scut.x++
+                    }else{
+                        scut.x--
+                        scut.x--
+                    }
                     scut.drawBlock()
                 }else{
                     scut.deleteBlock()
