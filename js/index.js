@@ -1,11 +1,3 @@
-let canvas = document.getElementById('canvas')
-let ctx = canvas.getContext('2d')
-let dirction  = ''
-let canvasWidth = canvas.width
-let canvasHeight = canvas.height
-let scor = 0
-let vitesse = 25
-
 class Snack{
     constructor(x, y){
         this.x = x
@@ -35,7 +27,6 @@ class Snack{
     moveBottom(){
         this.y = this.y + 1
     }
-
 }
 class Appel{
     constructor(x,y){
@@ -79,6 +70,14 @@ class ScutSnack{
         this.y = this.y + 1
     }
 }
+
+let canvas = document.getElementById('canvas')
+let ctx = canvas.getContext('2d')
+let dirction  = ''
+let canvasWidth = canvas.width
+let canvasHeight = canvas.height
+let scor = 0
+let vitesse = 25
 
 let snack1 = new Snack(50,15)
 let appel1 = new Appel(45,65)
@@ -159,7 +158,7 @@ window.addEventListener('keydown', (e)=>{
                     scut.deleteBlock()
                     if (scut.x < snack1.x) {
                         scut.x++
-                        scut.x++   
+                        scut.x++
                     }else{
                         scut.x--
                         scut.x--
