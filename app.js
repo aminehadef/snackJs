@@ -5,7 +5,7 @@ let canvasWidth = canvas.width
 let canvasHeight = canvas.height
 let scor = 0
 let vitesse = 25
-var snackSize = []
+
 class Snack{
     constructor(x, y){
         this.x = x
@@ -49,30 +49,66 @@ class Appel{
         ctx.fill()
     }
 }
+class ScutSnack{
+    constructor (x, y, snackX,snackY){
+        this.x = x
+        this.y = y
+        this.width = 10
+        this.height = 5
+        this.snackX = snackX
+        this.snackY = snackY
+    }
+    drawBlock(){
+        ctx.fillStyle = 'yellow'
+        ctx.fillRect(this.x,this.y, this.width, this.height)
+    }
+    deleteBlock(){
+        ctx.clearRect(this.x,this.y, 10, 5)
+    }
+
+    moveRigth(){
+        this.x = this.x + 2
+    }
+    moveLeft(){
+        this.x = this.x - 2
+    }
+    moveUp(){
+        this.y = this.y - 1
+    }
+    moveBottom(){
+        this.y = this.y + 1
+    }
+}
 
 let snack1 = new Snack(50,15)
 let appel1 = new Appel(45,65)
+let scut = new ScutSnack(38,15, snack1.x, snack1.y)
+
+scut.drawBlock()
 
 function collision(){
 
     if (snack1.x < appel1.x + 2 && snack1.x + snack1.width > appel1.x - 2 && snack1.y < appel1.y + 4 && snack1.height + snack1.y > appel1.y){
         scor++
         if (dirction == 'bottom') {
-            snackSize.push( new Snack(snack1.x, snack1.y - (snack1.height + 5)))
+            //snackSize.push( new Snack(snack1.x, snack1.y - (snack1.height + 5)))
+            //console.log(snackSize)
         }
         if (dirction == 'up') {
-            snackSize.push( new Snack(snack1.x, snack1.y + (snack1.height + 5)))
+            //snackSize.push( new Snack(snack1.x, snack1.y + (snack1.height + 5)))
+            //console.log(snackSize)
         }
         if (dirction == 'rigth') {
-            snackSize.push( new Snack(snack1.x - snack1.width - 5, snack1.y))
+            //snackSize.push( new Snack(snack1.x - snack1.width - 5, snack1.y))
+            //console.log(snackSize)
         }
         if (dirction == 'left') {
-            snackSize.push( new Snack(snack1.x + snack1.width + 5, snack1.y))
+            //snackSize.push( new Snack(snack1.x + snack1.width + 5, snack1.y))
+            //console.log(snackSize)
         }
-
-        console.log('miamiam');
     }
 }
+
 
 window.addEventListener('keydown', (e)=>{
     e.preventDefault()
@@ -87,20 +123,18 @@ window.addEventListener('keydown', (e)=>{
                 if (snack1.x + 14 > canvasWidth) {
                     window.clearInterval(snack1.interva)
                 }
-                collision()
-                for(let i = 0; i < snackSize.length;i++){
-                    snackSize[i].deleteBlock()
-                    if (snack1.y < snackSize[i].y) {
-                        snackSize[i].y--
-                    } else {
-                        snackSize[i].moveRigth()
-                    }
-                    snackSize[i].drawBlock()
-                }
                 snack1.deleteBlock()
                 snack1.moveRigth()
                 snack1.drawBlock()
-                
+                if (scut.y != snack1.y) {
+                    scut.deleteBlock()
+                    scut.y++
+                    scut.drawBlock()
+                }else{
+                    scut.deleteBlock()
+                    scut.moveRigth()
+                    scut.drawBlock()
+                }
             },vitesse)
 
         break
@@ -114,20 +148,19 @@ window.addEventListener('keydown', (e)=>{
                 if (snack1.y < 2) {
                     window.clearInterval(snack1.interva)
                 }
-                collision()
-                for(let i = 0; i < snackSize.length;i++){
-                    snackSize[i].deleteBlock()
-                    if (snackSize[i].x < snack1.x) {
-                        snackSize[i].x++
-                        snackSize[i].x++
-                    }else{
-                        snackSize[i].moveUp()
-                    }
-                    snackSize[i].drawBlock()
-                }
                 snack1.deleteBlock()
                 snack1.moveUp()
                 snack1.drawBlock()
+                if (scut.x != snack1.x) {
+                    scut.deleteBlock()
+                    scut.x++
+                    scut.x++
+                    scut.drawBlock()
+                } else {
+                    scut.deleteBlock()
+                    scut.moveUp()
+                    scut.drawBlock()   
+                }
             },vitesse)
 
         break
@@ -140,20 +173,18 @@ window.addEventListener('keydown', (e)=>{
                 if (snack1.x < 4) {
                     window.clearInterval(snack1.interva)
                 }
-                collision()
-                for(let i = 0; i < snackSize.length;i++){
-                    snackSize[i].deleteBlock()
-                    if (snack1.y > snackSize[i].y) {
-                        snackSize[i].y++
-                    } else {
-                        snackSize[i].moveLeft()
-                    }
-                    
-                    snackSize[i].drawBlock()
-                }
                 snack1.deleteBlock()
                 snack1.moveLeft()
                 snack1.drawBlock()
+                if (scut.y != snack1.y) {
+                    scut.deleteBlock()
+                    scut.y++
+                    scut.drawBlock()
+                } else {
+                    scut.deleteBlock()
+                    scut.moveLeft()
+                    scut.drawBlock()   
+                }
             },vitesse)
             
         break
@@ -166,21 +197,20 @@ window.addEventListener('keydown', (e)=>{
                 if (snack1.y + 7 > canvasHeight) {
                     window.clearInterval(snack1.interva)
                 }
-                collision()
-                for(let i = 0; i < snackSize.length;i++){
-                    snackSize[i].deleteBlock()
-                    if (snackSize[i].x < snack1.x) {
-                        snackSize[i].x++
-                        snackSize[i].x++
-                    }
-                    else{
-                        snackSize[i].moveBottom()
-                    }
-                    snackSize[i].drawBlock()
-                }
                 snack1.deleteBlock()
                 snack1.moveBottom()
                 snack1.drawBlock()
+
+                if (scut.x != snack1.x) {
+                    scut.deleteBlock()
+                    scut.x++
+                    scut.x++
+                    scut.drawBlock()
+                }else{
+                    scut.deleteBlock()
+                    scut.moveBottom()
+                    scut.drawBlock()
+                }
             },vitesse)
         break
     }
