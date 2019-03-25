@@ -108,22 +108,16 @@ scut.drawBlock()
 /**
  * fonction pour la détection de collision
  */
+let inter = setInterval(collision,vitesse)
 function collision(){
-
     if (snack1.x < appel1.x + 2 && snack1.x + snack1.width > appel1.x - 2 && snack1.y < appel1.y + 4 && snack1.height + snack1.y > appel1.y){
         scor++
-        if (dirction == 'bottom') {
-            console.log(snack1.x);
-        }
-        if (dirction == 'up') {
-            console.log(snack1.x);
-        }
-        if (dirction == 'rigth') {
-            console.log(snack1.x);
-        }
-        if (dirction == 'left') {
-            console.log(snack1.x);
-        }
+        console.log(scor);
+        clearInterval(inter)
+        setTimeout(()=>{
+            inter = setInterval(collision, vitesse)
+        },1000)
+        
     }
 }
 
@@ -137,16 +131,14 @@ window.addEventListener('keydown', (e)=>{
     e.preventDefault()
     
     switch (e.keyCode) {
-        
         case 39:
             if (dirction == 'left') {break}// vérifie la direction du serpent pour éviter les demitour
-            window.clearInterval(snack1.interva)// pour éviter les multiplier les setinterval
+            window.clearInterval(snack1.interva)// pour eviter les multiplier les setinterval
             dirction = 'rigth'
             snack1.interva = window.setInterval(()=>{
-                if (snack1.x + 14 > canvasWidth) {//la tête du serpent est au bord de la canvas 
+                if (snack1.x + 14 > canvasWidth) {//la tete du serpent est au bord de la canvas 
                     window.clearInterval(snack1.interva)
                 }
-                collision()
                 snack1.deleteBlock()
                 snack1.moveRigth()
                 snack1.drawBlock()
@@ -168,7 +160,6 @@ window.addEventListener('keydown', (e)=>{
         break
 
         case 38:
-
             if (dirction == 'bottom') {break}
             window.clearInterval(snack1.interva)
             dirction = 'up'
@@ -176,7 +167,6 @@ window.addEventListener('keydown', (e)=>{
                 if (snack1.y < 2) {
                     window.clearInterval(snack1.interva)
                 }
-                collision()
                 snack1.deleteBlock()
                 snack1.moveUp()
                 snack1.drawBlock()
@@ -207,7 +197,6 @@ window.addEventListener('keydown', (e)=>{
                 if (snack1.x < 4) {
                     window.clearInterval(snack1.interva)
                 }
-                collision()
                 snack1.deleteBlock()
                 snack1.moveLeft()
                 snack1.drawBlock()
@@ -236,11 +225,9 @@ window.addEventListener('keydown', (e)=>{
                 if (snack1.y + 7 > canvasHeight) {
                     window.clearInterval(snack1.interva)
                 }
-                collision()
                 snack1.deleteBlock()
                 snack1.moveBottom()
                 snack1.drawBlock()
-
                 if (scut.x != snack1.x) {
                     scut.deleteBlock()
                     if (scut.x < snack1.x) {
