@@ -107,6 +107,7 @@ scut.drawBlock()
 
 /**
  * fonction pour la détection de collision
+ * 
  */
 let inter = setInterval(collision,vitesse)
 function collision(){
