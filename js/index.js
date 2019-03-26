@@ -118,21 +118,23 @@ function collision(){
         switch (dirction) {
             case 'left':
                 console.log('left');
-            break;
+                scut.push(new ScutSnack(scut[scut.length - 1].x + 12, scut[scut.length - 1].y, snack1.x, snack1.y))
             case 'rigth':
                 console.log('rigth');
+                scut.push(new ScutSnack(scut[scut.length - 1].x - 12, scut[scut.length - 1].y, snack1.x, snack1.y))
                 
             break;
             case 'bottom':
                 console.log('bottom');
-                
+                scut.push(new ScutSnack(scut[scut.length - 1].x, scut[scut.length - 1].y - 6, snack1.x, snack1.y))
             break;
             case 'up':
                 console.log('up');
+                scut.push(new ScutSnack(scut[scut.length - 1].x, scut[scut.length - 1].y + 6, snack1.x, snack1.y))
                 
             break;
         }
-        clearInterval(inter)
+        clearInterval(inter)//bodouage pour que la fonction soit appeller une seul fois :(
         setTimeout(()=>{
             inter = setInterval(collision, vitesse)
         },1000)
