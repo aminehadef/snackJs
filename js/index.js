@@ -101,9 +101,11 @@ let dirction  = ''
  */
 let snack1 = new Snack(50,15)
 let appel1 = new Appel(45,65)
-let scut = new ScutSnack(38,15, snack1.x, snack1.y)
+let scut = [new ScutSnack(38,15, snack1.x, snack1.y), new ScutSnack(26,15, snack1.x, snack1.y)]
+let tabScut = []
 
-scut.drawBlock()
+scut[0].drawBlock()
+scut[1].drawBlock()
 
 /**
  * fonction pour la détection de collision
@@ -113,12 +115,27 @@ let inter = setInterval(collision,vitesse)
 function collision(){
     if (snack1.x < appel1.x + 2 && snack1.x + snack1.width > appel1.x - 2 && snack1.y < appel1.y + 4 && snack1.height + snack1.y > appel1.y){
         scor++
-        console.log(scor);
+        switch (dirction) {
+            case 'left':
+                console.log('left');
+            break;
+            case 'rigth':
+                console.log('rigth');
+                
+            break;
+            case 'bottom':
+                console.log('bottom');
+                
+            break;
+            case 'up':
+                console.log('up');
+                
+            break;
+        }
         clearInterval(inter)
         setTimeout(()=>{
             inter = setInterval(collision, vitesse)
         },1000)
-        
     }
 }
 
@@ -143,18 +160,20 @@ window.addEventListener('keydown', (e)=>{
                 snack1.deleteBlock()
                 snack1.moveRigth()
                 snack1.drawBlock()
-                if (scut.y != snack1.y) {
-                    scut.deleteBlock()
-                    if (scut.y < snack1.y) {
-                        scut.y++
-                    } else {
-                        scut.y--
-                    }
-                    scut.drawBlock()
-                }else{
-                    scut.deleteBlock()
-                    scut.moveRigth()
-                    scut.drawBlock()
+                for (let i = 0; i < scut.length; i++) {
+                    if (scut[i].y != snack1.y) {
+                        scut[i].deleteBlock()
+                        if (scut[i].y < snack1.y) {
+                            scut[i].y++
+                        } else {
+                            scut[i].y--
+                        }
+                        scut[i].drawBlock()
+                    }else{
+                        scut[i].deleteBlock()
+                        scut[i].moveRigth()
+                        scut[i].drawBlock()
+                    } 
                 }
             },vitesse)
 
@@ -171,20 +190,22 @@ window.addEventListener('keydown', (e)=>{
                 snack1.deleteBlock()
                 snack1.moveUp()
                 snack1.drawBlock()
-                if (scut.x != snack1.x) {
-                    scut.deleteBlock()
-                    if (scut.x < snack1.x) {
-                        scut.x++
-                        scut.x++
-                    }else{
-                        scut.x--
-                        scut.x--
-                    }
-                    scut.drawBlock()
-                } else {
-                    scut.deleteBlock()
-                    scut.moveUp()
-                    scut.drawBlock()   
+                for (let i = 0; i < scut.length; i++) {
+                    if (scut[i].x != snack1.x) {
+                        scut[i].deleteBlock()
+                        if (scut[i].x < snack1.x) {
+                            scut[i].x++
+                            scut[i].x++
+                        }else{
+                            scut[i].x--
+                            scut[i].x--
+                        }
+                        scut[i].drawBlock()
+                    } else {
+                        scut[i].deleteBlock()
+                        scut[i].moveUp()
+                        scut[i].drawBlock()   
+                    }   
                 }
             },vitesse)
 
@@ -201,18 +222,20 @@ window.addEventListener('keydown', (e)=>{
                 snack1.deleteBlock()
                 snack1.moveLeft()
                 snack1.drawBlock()
-                if (scut.y != snack1.y) {
-                    scut.deleteBlock()
-                    if (scut.y < snack1.y) {
-                        scut.y++
+                for (let i = 0; i < scut.length; i++) {
+                    if (scut[i].y != snack1.y) {
+                        scut[i].deleteBlock()
+                        if (scut[i].y < snack1.y) {
+                            scut[i].y++
+                        } else {
+                            scut[i].y--
+                        }
+                        scut[i].drawBlock()
                     } else {
-                        scut.y--
+                        scut[i].deleteBlock()
+                        scut[i].moveLeft()
+                        scut[i].drawBlock()   
                     }
-                    scut.drawBlock()
-                } else {
-                    scut.deleteBlock()
-                    scut.moveLeft()
-                    scut.drawBlock()   
                 }
             },vitesse)
             
@@ -229,20 +252,22 @@ window.addEventListener('keydown', (e)=>{
                 snack1.deleteBlock()
                 snack1.moveBottom()
                 snack1.drawBlock()
-                if (scut.x != snack1.x) {
-                    scut.deleteBlock()
-                    if (scut.x < snack1.x) {
-                        scut.x++
-                        scut.x++
+                for (let i = 0; i < scut.length; i++) {
+                    if (scut[i].x != snack1.x) {
+                        scut[i].deleteBlock()
+                        if (scut[i].x < snack1.x) {
+                            scut[i].x++
+                            scut[i].x++
+                        }else{
+                            scut[i].x--
+                            scut[i].x--
+                        }
+                        scut[i].drawBlock()
                     }else{
-                        scut.x--
-                        scut.x--
+                        scut[i].deleteBlock()
+                        scut[i].moveBottom()
+                        scut[i].drawBlock()
                     }
-                    scut.drawBlock()
-                }else{
-                    scut.deleteBlock()
-                    scut.moveBottom()
-                    scut.drawBlock()
                 }
             },vitesse)
         break
