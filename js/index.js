@@ -96,7 +96,7 @@ let canvasHeight = canvas.height
  */
 
 let scor = 0
-let vitesse = 15
+let vitesse = 25
 let dirction  = ''
 
 /**
@@ -117,6 +117,7 @@ let inter = setInterval(collision,vitesse)
 function collision(){
     if (snack1.x < appel1.x + 2 && snack1.x + snack1.width > appel1.x - 2 && snack1.y < appel1.y + 4 && snack1.height + snack1.y > appel1.y){
         scor++
+        vitesse--
         let randomX = Math.floor(Math.random() * canvasWidth)
         let randomY = Math.floor(Math.random() * canvasHeight)
         
@@ -174,7 +175,7 @@ window.addEventListener('keydown', (e)=>{
                 snack1.moveRigth()
                 snack1.drawBlock()
                 for (let i = 0; i < scut.length; i++) {
-                    if (scut[i].y != snack1.y) {
+                    if (scut[i].y != snack1.y && dirction == 'rigth') {
                         scut[i].deleteBlock()
                         if (scut[i].y < snack1.y) {
                             scut[i].y++
@@ -189,9 +190,7 @@ window.addEventListener('keydown', (e)=>{
                     } 
                 }
             },vitesse)
-
         break
-
         case 38:
             if (dirction == 'bottom') {break}
             window.clearInterval(snack1.interva)
@@ -221,7 +220,6 @@ window.addEventListener('keydown', (e)=>{
                     }   
                 }
             },vitesse)
-
         break
 
         case 37:
@@ -251,9 +249,7 @@ window.addEventListener('keydown', (e)=>{
                     }
                 }
             },vitesse)
-            
         break
-
         case 40:
             if (dirction == 'up') {break}
             window.clearInterval(snack1.interva)
