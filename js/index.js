@@ -45,6 +45,9 @@ class Appel{
         ctx.arc(this.x,this.y + 2, 2, 0, 10 * Math.PI)
         ctx.fill()
     }
+    deleteBlock(){
+        ctx.clearRect(this.x - 2, this.y - 2, 2 * 2 + 2 , 2 * 2 + 2)
+    }
 }
 /**
  * class scutSnack représente la queue du serpent
@@ -93,7 +96,7 @@ let canvasHeight = canvas.height
  */
 
 let scor = 0
-let vitesse = 25
+let vitesse = 15
 let dirction  = ''
 
 /**
@@ -102,7 +105,6 @@ let dirction  = ''
 let snack1 = new Snack(50,15)
 let appel1 = new Appel(45,65)
 let scut = [new ScutSnack(38,15, snack1.x, snack1.y), new ScutSnack(26,15, snack1.x, snack1.y)]
-let tabScut = []
 
 scut[0].drawBlock()
 scut[1].drawBlock()
@@ -115,23 +117,32 @@ let inter = setInterval(collision,vitesse)
 function collision(){
     if (snack1.x < appel1.x + 2 && snack1.x + snack1.width > appel1.x - 2 && snack1.y < appel1.y + 4 && snack1.height + snack1.y > appel1.y){
         scor++
+        let randomX = Math.floor(Math.random() * canvasWidth)
+        let randomY = Math.floor(Math.random() * canvasHeight)
+        
         switch (dirction) {
             case 'left':
-                console.log('left');
                 scut.push(new ScutSnack(scut[scut.length - 1].x + 12, scut[scut.length - 1].y, snack1.x, snack1.y))
+                appel1.deleteBlock()
+                appel1 = new Appel(randomX, randomY)
+                appel1.drawAppel()
             case 'rigth':
-                console.log('rigth');
                 scut.push(new ScutSnack(scut[scut.length - 1].x - 12, scut[scut.length - 1].y, snack1.x, snack1.y))
-                
+                appel1.deleteBlock()
+                appel1 = new Appel(randomX, randomY)
+                appel1.drawAppel()
             break;
             case 'bottom':
-                console.log('bottom');
                 scut.push(new ScutSnack(scut[scut.length - 1].x, scut[scut.length - 1].y - 6, snack1.x, snack1.y))
+                appel1.deleteBlock()
+                appel1 = new Appel(randomX, randomY)
+                appel1.drawAppel()
             break;
             case 'up':
-                console.log('up');
                 scut.push(new ScutSnack(scut[scut.length - 1].x, scut[scut.length - 1].y + 6, snack1.x, snack1.y))
-                
+                appel1.deleteBlock()
+                appel1 = new Appel(randomX, randomY)
+                appel1.drawAppel()
             break;
         }
         clearInterval(inter)//bodouage pour que la fonction soit appeller une seul fois :(
