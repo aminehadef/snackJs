@@ -1,8 +1,6 @@
 var canvas = document.getElementById('canvas')
 var ctx = canvas.getContext('2d')
 var speed = 50
-var it
-var direction = ''
 var confCanvas = [
     canvas.width = 500,
     canvas.height = 500
@@ -80,7 +78,7 @@ function head(){
             this.body[0].moveL()
         }
 
-        for(let i = 1; i < this.body.length; i++){
+        for(let i = 1; i < this.body.length - 1; i++){
             if(this.body[i].y > this.body[i - 1].y){
                 this.body[i].moveT()
             }else if(this.body[i].y < this.body[i - 1].y){
@@ -105,7 +103,7 @@ function head(){
             this.body[0].moveR()
         }
 
-        for(let i = 1; i < this.body.length; i++){
+        for(let i = 1; i < this.body.length - 1; i++){
             if(this.body[i].y > this.body[i - 1].y){
                 this.body[i].moveT()
             }else if(this.body[i].y < this.body[i - 1].y){
@@ -130,7 +128,7 @@ function head(){
             this.body[0].moveB()
         }
 
-        for(let i = 1; i < this.body.length; i++){
+        for(let i = 1; i < this.body.length - 1; i++){
             if(this.body[i].x > this.body[i - 1].x){
                 this.body[i].moveL()
             }else if(this.body[i].x < this.body[i - 1].x){
@@ -154,7 +152,7 @@ function head(){
             this.body[0].moveT()
         }
 
-        for(let i = 1; i < this.body.length ; i++){
+        for(let i = 1; i < this.body.length - 1; i++){
             if(this.body[i].x > this.body[i - 1].x){
                 this.body[i].moveL()
             }else if(this.body[i].x < this.body[i - 1].x){
@@ -172,6 +170,9 @@ head.draw()
 for(let i = 0; i < head.body.length; i++){
     head.body[i].draw()
 }
+
+var it
+var direction = ''
 
 document.addEventListener("keyup", (ev)=>{
     ev.preventDefault()
